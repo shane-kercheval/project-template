@@ -55,13 +55,14 @@ class DataPersistence(ABC):
 
     @abstractmethod
     def _load(self):
-        pass
+        """This method will contain the logic for loading the data"""
 
     @abstractmethod
     def _save(self, data):
-        pass
+        """This method will contain the logic for savinging the data"""
 
     def load(self):
+        """Loads the data according to caching rules."""
         assert self.name
         if self.cache:
             if self._cached_data is None:
@@ -71,6 +72,7 @@ class DataPersistence(ABC):
             return self._load()
 
     def save(self, data):
+        """Loads the data and caches accordingly."""
         assert self.name
         if self.cache:
             self._cached_data = data
@@ -95,19 +97,16 @@ class FileDataPersistence(DataPersistence):
 
     @abstractmethod
     def _load(self):
-        """Logic to load the `data`"""
-        pass
+        """This method will contain the logic for loading the data"""
 
     @abstractmethod
     def _save(self, data):
-        """Logic to save the `data`"""
-        pass
+        """This method will contain the logic for savinging the data"""
 
     @property
     @abstractmethod
     def file_extension(self) -> str:
         """File extension to use for the path (e.g. '.csv' or '.pkl')"""
-        pass
 
     @property
     def path(self) -> str:
