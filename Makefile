@@ -38,12 +38,16 @@ linting:
 	flake8 --max-line-length 99 source/service
 	flake8 --max-line-length 99 tests
 
-tests: linting
+unittests:
 	rm -f tests/test_files/log.log
-	#python -m unittest discover tests
-	#pytest tests
+	# pytest tests
 	coverage run -m pytest tests
 	coverage html
+
+doctests:
+	python -m doctest source/library/utilities.py
+
+tests: linting unittests doctests
 
 open_coverage:
 	open 'htmlcov/index.html'
