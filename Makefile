@@ -31,17 +31,17 @@ docker_all:
 # Project
 ####
 linting:
-	flake8 --max-line-length 99 source/config
-	flake8 --max-line-length 99 source/entrypoints
-	flake8 --max-line-length 99 source/library
-	flake8 --max-line-length 99 source/notebooks
-	flake8 --max-line-length 99 source/service
-	flake8 --max-line-length 99 tests
+	flake8 source/config
+	flake8 source/entrypoints
+	flake8 source/library
+	flake8 source/notebooks
+	flake8 source/service
+	flake8 tests
 
 unittests:
 	rm -f tests/test_files/log.log
 	# pytest tests
-	coverage run -m pytest tests
+	coverage run -m pytest --durations=0 tests
 	coverage html
 
 doctests:

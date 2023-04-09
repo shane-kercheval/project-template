@@ -1,6 +1,6 @@
 """This file defines test fixtures for pytest unit-tests."""
 import pytest
-from source.service.datasets import DatasetsBase, PickledDataLoader, CsvDataLoader
+from source.library.dataset_types import DatasetsBase, PickledDataLoader, CsvDataLoader
 
 
 class TestDatasets(DatasetsBase):
