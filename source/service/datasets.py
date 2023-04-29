@@ -1,5 +1,5 @@
 """
-This file defines class that hides the logic/path for saving and loading specific datasets
+Defines class that hides the logic/path for saving and loading specific datasets
 used across this project, as well as providing a brief description for each dataset.
 
 To define a new dataset, create a property in Datasets.__init__() following the existing patthern.
@@ -28,18 +28,20 @@ from source.library.dataset_types import DatasetsBase, PickledDataLoader
 
 
 class Datasets(DatasetsBase):
+    """Defines the datasets available to the project."""
+
     def __init__(self) -> None:
         # define the datasets before calling __init__()
         self.raw__credit = PickledDataLoader(
             description="credit data from https://www.openml.org/d/31",
             dependencies=[],
-            directory=config.dir_data_raw(),
+            directory=config.DIR_DATA_RAW,
             cache=False,
         )
         self.credit = PickledDataLoader(
             description="credit data from https://www.openml.org/d/31",
             dependencies=['raw__credit'],
-            directory=config.dir_data_processed(),
+            directory=config.DIR_DATA_PROCESSED,
             cache=False,
         )
         # call __init__() after defining properties
@@ -50,4 +52,4 @@ class Datasets(DatasetsBase):
 DATA = Datasets()
 
 # ensure all names got set properly
-assert all([getattr(DATA, x).name == x for x in DATA.datasets])
+assert all(getattr(DATA, x).name == x for x in DATA.datasets)

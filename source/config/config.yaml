@@ -1,11 +1,11 @@
-OUTPUT:
-  DIRECTORY: output
+output:
+  directory: output
 
-DATA:
-  RAW_DIRECTORY: data/raw
-  INTERIM_DIRECTORY: data/interim
-  PROCESSED_DIRECTORY: data/processed
-  EXTERNAL_DIRECTORY: data/external
+data:
+  raw_directory: data/raw
+  interim_directory: data/interim
+  processed_directory: data/processed
+  external_directory: data/external
 
-NOTEBOOKS:
-  DIRECTORY: source/notebooks
+notebooks:
+  directory: source/notebooks

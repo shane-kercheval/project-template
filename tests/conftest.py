@@ -1,10 +1,12 @@
-"""This file defines test fixtures for pytest unit-tests."""
+"""Defines test fixtures for pytest unit-tests."""
 import pytest
 from source.library.dataset_types import DatasetsBase, PickledDataLoader, CsvDataLoader
 
 
 class TestDatasets(DatasetsBase):
-    def __init__(self, cache) -> None:
+    """Creates a fake/mock dataset."""
+
+    def __init__(self, cache: bool) -> None:
         # define the datasets before calling __init__()
         self.dataset_1 = PickledDataLoader(
             description="Dataset description",
@@ -27,11 +29,13 @@ class TestDatasets(DatasetsBase):
         super().__init__()
 
 
-@pytest.fixture(scope='function')
-def datasets_fake_cache():
+@pytest.fixture()
+def datasets_fake_cache() -> TestDatasets:
+    """Returns fake dataset with cache turned on."""
     return TestDatasets(cache=True)
 
 
-@pytest.fixture(scope='function')
-def datasets_fake_no_cache():
+@pytest.fixture()
+def datasets_fake_no_cache() -> TestDatasets:
+    """Returns fake dataset with cache turned off."""
     return TestDatasets(cache=False)

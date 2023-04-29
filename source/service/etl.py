@@ -1,6 +1,5 @@
-"""
-This file contains the logic for extracting and transforming the project data.
-"""
+"""Contains the logic for extracting and transforming the project data."""
+
 import warnings
 import logging
 
@@ -14,7 +13,7 @@ from sklearn.datasets import fetch_openml
 @log_function_call
 @log_timer
 def extract() -> pd.DataFrame:
-    """This function downloads and returns the credit data from openml.org."""
+    """Downloads and returns the credit data from openml.org."""
     logging.info("Downloading credit data from https://www.openml.org/d/31")
     credit_g = fetch_openml('credit-g', version=1)
     credit_data = credit_g['data']
@@ -26,7 +25,7 @@ def extract() -> pd.DataFrame:
 @log_timer
 def transform(credit__raw: pd.DataFrame) -> pd.DataFrame:
     """
-    This function transforms the credit data.
+    Transforms the credit data.
 
     Args:
         credit__raw: the raw data to transform

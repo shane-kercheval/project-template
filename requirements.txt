@@ -1,6 +1,5 @@
 click
 coverage
-flake8
 helpsk
 jupyter-contrib-nbextensions
 notebook
@@ -11,5 +10,6 @@ plotly-express
 pytest
 python-dateutil
 PyYAML
+ruff
 scikit-learn
 xmltodict
