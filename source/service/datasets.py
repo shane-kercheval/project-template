@@ -23,33 +23,21 @@ df = ...logic..
 DATA.the_dataset.save(df)
 ```
 """
-from source.config.settings import settings
-from source.library.dataset_types import DatasetsBase, PickledDataLoader
+import yaml
+from source.library.datasets_base import DataPersistence, DatasetsBase
 
 
 class Datasets(DatasetsBase):
     """Defines the datasets available to the project."""
 
-    def __init__(self) -> None:
-        # define the datasets before calling __init__()
-        self.raw__credit = PickledDataLoader(
-            description="credit data from https://www.openml.org/d/31",
-            dependencies=[],
-            directory=settings.DIR_DATA_RAW,
-            cache=False,
-        )
-        self.credit = PickledDataLoader(
-            description="credit data from https://www.openml.org/d/31",
-            dependencies=['raw__credit'],
-            directory=settings.DIR_DATA_PROCESSED,
-            cache=False,
-        )
-        # call __init__() after defining properties
-        super().__init__()
-
+    raw__credit: DataPersistence
+    credit: DataPersistence
 
 # create a global object that can be imported into other scripts
-DATA = Datasets()
+with open('/code/datasets.yml') as handle:
+    yaml_data = yaml.safe_load(handle)
+
+DATA = Datasets(dataset_info=yaml_data)
 
 # ensure all names got set properly
 assert all(getattr(DATA, x).name == x for x in DATA.datasets)

@@ -5,6 +5,7 @@ def test_settings() -> None:
     """Test settings load properly."""
     from source.config.settings import settings
     assert settings.DIR_OUTPUT
+    assert settings.dict()['DIR_OUTPUT']
     assert settings.DIR_DATA_RAW
     assert settings.DIR_DATA_INTERIM
     assert settings.DIR_DATA_PROCESSED

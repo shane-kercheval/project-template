@@ -3,6 +3,7 @@ Defines the base classes that hide the logic/path for saving and loading specifi
 datasets used across this project, as well as providing a brief description for each dataset.
 """
 
+import dataclasses
 import os
 import datetime
 import logging
@@ -187,21 +188,29 @@ class CsvDataLoader(FileDataPersistence):
         data.to_csv(self.path, index=None)
 
 
-class DatasetsBase(ABC):
+@dataclasses.dataclass()
+class DatasetsBase:
     """
     Defines all of the datasets available globally to the project.
     NOTE: in overridding the base class, call __init__() after defining properties.
     """
 
-    def __init__(self) -> None:
-        """Use this function to define datasets by following the existing pattern."""
-        # dynamically set the name property in the DataPersistence object in all of the object;
-        # I don't love this design, but it forces the names to match the property name and reduces
-        # the redundancy of duplicating the name when defining the property and passing in the name
-        # ot the loader
-        for dataset in self.datasets:
-            dataset_obj = getattr(self, dataset)
-            dataset_obj.name = dataset
+    def __init__(self, dataset_info: dict) -> None:
+        """
+        Create the DataPersistence objects for each field defined in the child class. Ensure the
+        fields created in the child class match the fields/keys in `dataset_info`.
+        """
+        di_names = list(dataset_info.keys())
+        assert len(di_names) == len(set(di_names))  # ensure no duplicates
+        field_names = list(self.__annotations__.keys())
+        assert di_names == field_names
+
+        for field_name in field_names:
+            info = dataset_info[field_name]
+            persist_class_name = info.pop('type')
+            persist_obj = globals()[persist_class_name](**info)
+            persist_obj.name = field_name
+            setattr(self, field_name, persist_obj)
 
     @property
     def datasets(self) -> list[str]:
