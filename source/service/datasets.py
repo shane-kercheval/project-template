@@ -23,7 +23,7 @@ df = ...logic..
 DATA.the_dataset.save(df)
 ```
 """
-import source.config.config as config
+from source.config.settings import settings
 from source.library.dataset_types import DatasetsBase, PickledDataLoader
 
 
@@ -35,13 +35,13 @@ class Datasets(DatasetsBase):
         self.raw__credit = PickledDataLoader(
             description="credit data from https://www.openml.org/d/31",
             dependencies=[],
-            directory=config.DIR_DATA_RAW,
+            directory=settings.DIR_DATA_RAW,
             cache=False,
         )
         self.credit = PickledDataLoader(
             description="credit data from https://www.openml.org/d/31",
             dependencies=['raw__credit'],
-            directory=config.DIR_DATA_PROCESSED,
+            directory=settings.DIR_DATA_PROCESSED,
             cache=False,
         )
         # call __init__() after defining properties

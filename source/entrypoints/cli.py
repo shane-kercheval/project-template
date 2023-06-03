@@ -7,17 +7,19 @@ the container run the following examples:
     - `source/scripts/commands.py --help`
     - `source/scripts/commands.py extract --help`
 """
+import os.path
 import logging.config
 import logging
 import click
 
 import source.service.etl as etl
 from source.service.datasets import DATA
+from source.config.settings import settings
 
 
 logging.config.fileConfig(
-    "source/config/logging_to_file.conf",
-    defaults={'logfilename': 'output/log.log'},
+    settings.LOGGING_CONFIG_PATH,
+    defaults={'logfilename': os.path.join(settings.DIR_OUTPUT, settings.LOGGING_FILE_NAME)},
     disable_existing_loggers=False,
 )
 
