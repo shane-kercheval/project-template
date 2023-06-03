@@ -70,7 +70,7 @@ remove_logs:
 	rm -f output/log.log
 
 ## Run entire workflow.
-all: tests data remove_logs explore
+all: tests remove_logs data explore
 
 ## Delete all generated files (e.g. virtual)
 clean:
